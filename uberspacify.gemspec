@@ -25,4 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rack'             , '>=1.4.1'
   gem.add_dependency 'daemon_controller', '>=1.0.0'
   
+  # dependency for mysql on Uberspace
+  gem.add_dependency 'mysql2'
+  
 end

@@ -35,12 +35,14 @@ Capistrano::Configuration.instance.load do
   default_run_options[:pty]   = true
 
   # callbacks
-  before  'deploy:setup',     'rvm:install_rvm'
-  before  'deploy:setup',     'rvm:install_ruby'
-  before  'deploy:setup',     'uberspace:setup_svscan'
-  before  'deploy:setup',     'daemontools:setup_daemon'
-  before  'deploy:setup',     'apache:setup_reverse_proxy'
-  after   'deploy',           'deploy:cleanup'
+  before  'deploy:setup',       'rvm:install_rvm'
+  before  'deploy:setup',       'rvm:install_ruby'
+  after   'deploy:setup',       'uberspace:setup_svscan'
+  after   'deploy:setup',       'daemontools:setup_daemon'
+  after   'deploy:setup',       'apache:setup_reverse_proxy'
+  after   'deploy:setup',       'mysql:setup_database_and_config'
+  after   'deploy:update_code', 'deploy:symlink_shared'
+  after   'deploy',             'deploy:cleanup'
 
   # custom recipes
   namespace :uberspace do
@@ -88,21 +90,46 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
     end
   end
 
-  namespace :deploy do
-      task :start do
-        run "svc -u #{fetch :home}/service/rails-#{fetch :application}"
+  namespace :mysql do
+    task :setup_database_and_config do
+      my_cnf = capture('cat ~/.my.cnf')
+      config = {}
+      %w(development production test).each do |env|
+        
+        config[env] = {
+          'adapter' => 'mysql',
+          'encoding' => 'utf8',
+          'database' => "#{fetch :user}_rails_#{fetch :application}_#{env}",
+          'host' => 'localhost'
+        }
+        
+        %w(user password port).each do |var|
+          my_cnf.match(/^#{var}=(\w+)/)
+          config[env][var] = $1
+        end
+        run "mysql -e 'CREATE DATABASE IF NOT EXISTS #{config[env]['database']} CHARACTER SET utf8 COLLATE utf8_general_ci;'"
       end
-      task :stop do
-        run "svc -d #{fetch :home}/service/rails-#{fetch :application}"
-      end
-      task :restart do
-        run "svc -du #{fetch :home}/service/rails-#{fetch :application}"
-      end
+      
+      run "mkdir -p #{fetch :shared_path}/config"
+      put config.to_yaml, "#{fetch :shared_path}/config/database.yml"
+      
+    end
+  end
 
-  #   desc 'Symlink shared configs and folders on each release.'
-  #   task :symlink_shared do
-  #     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  #   end
+  namespace :deploy do
+    task :start do
+      run "svc -u #{fetch :home}/service/rails-#{fetch :application}"
+    end
+    task :stop do
+      run "svc -d #{fetch :home}/service/rails-#{fetch :application}"
+    end
+    task :restart do
+      run "svc -du #{fetch :home}/service/rails-#{fetch :application}"
+    end
+
+    task :symlink_shared do
+      run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    end
   end
 
 end
