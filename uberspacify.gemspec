@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Jan Schulz-Hofen"]
   gem.email         = ["jan@launchco.com"]
   gem.description   = %q{Deploy Rails apps on Uberspace}
-  gem.summary       = %q{Deploy Rails apps on Uberspace}
+  gem.summary       = %q{Uberspacify helps you deploy a Ruby on Rails app on Uberspace, a popular German shared hosting provider.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
