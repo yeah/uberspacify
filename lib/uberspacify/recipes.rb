@@ -103,10 +103,15 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
           'host' => 'localhost'
         }
         
-        %w(user password port).each do |var|
-          my_cnf.match(/^#{var}=(\w+)/)
-          config[env][var] = $1
-        end
+        my_cnf.match(/^user=(\w+)/)
+        config[env]['username'] = $1
+
+        my_cnf.match(/^password=(\w+)/)
+        config[env]['password'] = $1
+
+        my_cnf.match(/^port=(\d+)/)
+        config[env]['port'] = $1.to_i
+        
         run "mysql -e 'CREATE DATABASE IF NOT EXISTS #{config[env]['database']} CHARACTER SET utf8 COLLATE utf8_general_ci;'"
       end
       
