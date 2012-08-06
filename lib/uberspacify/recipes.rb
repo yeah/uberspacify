@@ -97,7 +97,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
       %w(development production test).each do |env|
         
         config[env] = {
-          'adapter' => 'mysql',
+          'adapter' => 'mysql2',
           'encoding' => 'utf8',
           'database' => "#{fetch :user}_rails_#{fetch :application}_#{env}",
           'host' => 'localhost'
