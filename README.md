@@ -68,6 +68,8 @@ And here comes the fun part - get it all up and running on Uberspace! These comm
     $ bundle exec cap deploy:setup
     $ bundle exec cap deploy:migrations
     
+(Be sure to have your public key set up on your Uberspace account already.)
+    
 This will do a whole lot of things, so don't get nervous, it takes some time. After Capistrano is done, **please wait some more**. When Passenger starts for the first time, it will actually compile an nginx server. Don't worry though, subsequent starts will be fast.
 
 Now, **after some time**, your app should be available on your Uberspace URI.
