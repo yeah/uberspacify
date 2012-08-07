@@ -16,7 +16,6 @@ Capistrano::Configuration.instance.load do
   _cset(:domain)                { nil }
   _cset(:passenger_port)        { rand(61000-32768+1)+32768 } # random ephemeral port
   
-  _cset(:scm)                   { :git }
   _cset(:deploy_via)            { :remote_cache }
   _cset(:git_enable_submodules) { 1 }
   _cset(:branch)                { 'master' }

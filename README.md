@@ -44,6 +44,7 @@ set :user, 'cappy'
 set :application, 'dummyapp'
 
 # the repo where your code is hosted
+set :scm, :git
 set :repository, 'https://github.com/yeah/dummyapp.git'
 
 # optional stuff from here
