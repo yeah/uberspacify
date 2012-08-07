@@ -1,6 +1,6 @@
 # Uberspacify
 
-Uberspacify helps you deploy a Ruby on Rails app on Uberspace, a popular German shared hosting provider.
+Uberspacify helps you deploy a Ruby on Rails app on Uberspace, a popular shared hosting provider.
 
 All the magic is built into a couple nice Capistrano scripts. Uberspacify will create an environment for your app, install Passenger, run it in standalone mode, monitor it using Daemontools, and configure Apache to reverse-proxy to it. Uberspacify will also find out your Uberspace MySQL password and create databases as well as a `database.yml`
 
