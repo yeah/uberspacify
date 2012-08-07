@@ -21,11 +21,11 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rvm-capistrano',    '>=1.2.5'
   
   # dependencies for passenger on Uberspace
-  gem.add_dependency 'passenger'        , '>=3.0.15'
-  gem.add_dependency 'rack'             , '>=1.4.1'
+  gem.add_dependency 'passenger',         '>=3.0.15'
+  gem.add_dependency 'rack',              '>=1.4.1'
   gem.add_dependency 'daemon_controller', '>=1.0.0'
   
   # dependency for mysql on Uberspace
-  gem.add_dependency 'mysql2'           , '>=0.3.11'
+  gem.add_dependency 'mysql2',            '>=0.3.11'
   
 end
