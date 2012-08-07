@@ -37,7 +37,7 @@ require 'uberspacify/recipes'
 server 'phoenix.uberspace.de', :web, :app, :db, :primary => true
 
 # your Uberspace username
-set :user, 'cappy'
+set :user, 'ubernaut'
 
 # a name for your app, [a-z0-9] should be safe, will be used for your gemset,
 # databases, directories, etc.
