@@ -20,6 +20,7 @@ Capistrano::Configuration.instance.load do
   _cset(:git_enable_submodules) { 1 }
   _cset(:branch)                { 'master' }
 
+  _cset(:use_local_mysql)       { true }
   _cset(:keep_releases)         { 3 }
 
   # uberspace presets
@@ -39,7 +40,7 @@ Capistrano::Configuration.instance.load do
   after   'deploy:setup',       'uberspace:setup_svscan'
   after   'deploy:setup',       'daemontools:setup_daemon'
   after   'deploy:setup',       'apache:setup_reverse_proxy'
-  after   'deploy:setup',       'mysql:setup_database_and_config'
+  after   'deploy:setup',       'mysql:setup_database_and_config', if :use_local_mysql
   after   'deploy:update_code', 'deploy:symlink_shared'
   after   'deploy',             'deploy:cleanup'
 
