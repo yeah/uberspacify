@@ -31,7 +31,11 @@ load 'deploy/assets'
 Now, you need to add a few lines regarding your Uberspace to your `config/deploy.rb`. It is safe to copy, paste & adapt the following:
 
 ```ruby
-require 'uberspacify/recipes'
+# include uberspacify base recipes
+require 'uberspacify/base'
+
+# uncomment this if you don't use MySQL
+require 'uberspacify/mysql' 
 
 # the Uberspace server you are on
 server 'phoenix.uberspace.de', :web, :app, :db, :primary => true
