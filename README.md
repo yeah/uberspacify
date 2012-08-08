@@ -34,7 +34,7 @@ Now, you need to add a few lines regarding your Uberspace to your `config/deploy
 # include uberspacify base recipes
 require 'uberspacify/base'
 
-# uncomment this if you don't use MySQL
+# comment this if you don't use MySQL
 require 'uberspacify/mysql' 
 
 # the Uberspace server you are on
