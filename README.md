@@ -28,7 +28,7 @@ If you are using Rails' asset pipeline, add this line to your `Capfile`:
 load 'deploy/assets'
 ```
     
-Now, you need to add a few lines regarding your Uberspace to your `config/deploy.rb`. It is safe to copy, paste & adapt the following:
+Now, you need to add a few lines regarding your Uberspace to your `config/deploy.rb`. If you haven't used Capistrano previously, it is safe to overwrite it and copy, paste & adapt the following:
 
 ```ruby
 # include uberspacify base recipes
