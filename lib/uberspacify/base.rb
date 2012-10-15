@@ -85,6 +85,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
       path = fetch(:domain) ? "/var/www/virtual/#{fetch :user}/#{fetch :domain}" : "#{fetch :home}/html"
       run                 "mkdir -p #{path}"
       put htaccess,       "#{path}/.htaccess"
+      File.chmod("0644", "#{path}/.htaccess")
     end
   end
 
