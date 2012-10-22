@@ -101,6 +101,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
 
     task :symlink_shared do
       run "mkdir -p #{fetch :shared_path}/config" 
+      put config.to_yaml, "#{fetch :shared_path}/config/database.yml"      
       run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     end
   end
