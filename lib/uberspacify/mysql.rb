@@ -29,7 +29,6 @@ Capistrano::Configuration.instance.load do
         run "mysql -e 'CREATE DATABASE IF NOT EXISTS #{config[env]['database']} CHARACTER SET utf8 COLLATE utf8_general_ci;'"
       end
       
-      run "mkdir -p #{fetch :shared_path}/config"
       put config.to_yaml, "#{fetch :shared_path}/config/database.yml"
       
     end

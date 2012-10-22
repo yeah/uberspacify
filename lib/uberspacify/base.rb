@@ -71,7 +71,7 @@ exec multilog t ./main
       put log_script,     "#{fetch :home}/etc/run-rails-#{fetch :application}/log/run"
       run                 "chmod +x #{fetch :home}/etc/run-rails-#{fetch :application}/run"
       run                 "chmod +x #{fetch :home}/etc/run-rails-#{fetch :application}/log/run"
-      run                 "ln -nfs #{fetch :home}/etc/run-rails-#{fetch :application} #{fetch :home}/service/rails-#{fetch :application}"
+      run                 "ln -nfs #{fetch :home}/etc/run-rails-#{fetch :application} #{fetch :home}/service/rails-#{fetch :application}"          
 
     end
   end
@@ -100,6 +100,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
     end
 
     task :symlink_shared do
+      run "mkdir -p #{fetch :shared_path}/config" 
       run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     end
   end
