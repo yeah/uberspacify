@@ -1,2 +1,3 @@
 require 'uberspacify/base'
-require 'uberspacify/mysql'
+require 'uberspacify/database/mysql'
+require 'uberspacify/database/sqlite'
