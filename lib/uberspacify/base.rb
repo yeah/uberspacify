@@ -1,11 +1,11 @@
-require 'capistrano_colors'    
+require 'capistrano_colors'
 require 'rvm/capistrano'
 require 'bundler/capistrano'
 
 def abort_red(msg)
-  abort "  * \e[#{1};31mERROR: #{msg}\e[0m" 
+  abort "  * \e[#{1};31mERROR: #{msg}\e[0m"
 end
-  
+
 Capistrano::Configuration.instance.load do
 
   # required variables
@@ -15,7 +15,7 @@ Capistrano::Configuration.instance.load do
   # optional variables
   _cset(:domain)                { nil }
   _cset(:passenger_port)        { rand(61000-32768+1)+32768 } # random ephemeral port
-  
+
   _cset(:deploy_via)            { :remote_cache }
   _cset(:git_enable_submodules) { 1 }
   _cset(:branch)                { 'master' }
@@ -28,7 +28,7 @@ Capistrano::Configuration.instance.load do
   set(:use_sudo)                { false }
   set(:rvm_type)                { :user }
   set(:rvm_install_ruby)        { :install }
-  set(:rvm_ruby_string)         { "ree@rails-#{application}" } 
+  set(:rvm_ruby_string)         { "ree@rails-#{application}" }
 
   ssh_options[:forward_agent] = true
   default_run_options[:pty]   = true
@@ -48,7 +48,7 @@ Capistrano::Configuration.instance.load do
       run 'uberspace-setup-svscan ; echo 0'
     end
   end
-  
+
   namespace :daemontools do
     task :setup_daemon do
       daemon_script = <<-EOF
@@ -85,6 +85,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
       path = fetch(:domain) ? "/var/www/virtual/#{fetch :user}/#{fetch :domain}" : "#{fetch :home}/html"
       run                 "mkdir -p #{path}"
       put htaccess,       "#{path}/.htaccess"
+      run                 "chmod +r #{path}/.htaccess"
     end
   end
 
