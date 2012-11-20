@@ -34,13 +34,13 @@ Capistrano::Configuration.instance.load do
   default_run_options[:pty]   = true
 
   # callbacks
-  before  'deploy:setup',       'rvm:install_rvm'
-  before  'deploy:setup',       'rvm:install_ruby'
-  after   'deploy:setup',       'uberspace:setup_svscan'
-  after   'deploy:setup',       'daemontools:setup_daemon'
-  after   'deploy:setup',       'apache:setup_reverse_proxy'
-  after   'deploy:update_code', 'deploy:symlink_shared'
-  after   'deploy',             'deploy:cleanup'
+  before  'deploy:setup',           'rvm:install_rvm'
+  before  'deploy:setup',           'rvm:install_ruby'
+  after   'deploy:setup',           'uberspace:setup_svscan'
+  after   'deploy:setup',           'daemontools:setup_daemon'
+  after   'deploy:setup',           'apache:setup_reverse_proxy'
+  before  'deploy:finalize_update', 'deploy:symlink_shared'
+  after   'deploy',                 'deploy:cleanup'
 
   # custom recipes
   namespace :uberspace do
