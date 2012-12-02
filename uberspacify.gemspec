@@ -3,10 +3,11 @@ require File.expand_path('../lib/uberspacify/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Jan Schulz-Hofen"]
+  gem.license       = 'MIT'
   gem.email         = ["jan@launchco.com"]
   gem.description   = %q{Deploy Rails apps on Uberspace}
   gem.summary       = %q{Uberspacify helps you deploy a Ruby on Rails app on Uberspace, a popular German shared hosting provider.}
-  gem.homepage      = ""
+  gem.homepage      = "https://rubygems.org/gems/uberspacify"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
