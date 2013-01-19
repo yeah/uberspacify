@@ -1,19 +1,23 @@
 Capistrano::Configuration.instance.load do
 
+ # optional variables
+  _cset(:database_name_suffix)  { nil }
+
   # callbacks
   after   'deploy:setup',       'mysql:setup_database_and_config'
 
   # custom recipes
   namespace :mysql do
     task :setup_database_and_config do
-      my_cnf = capture('cat ~/.my.cnf')
-      config = {}
+      my_cnf    = capture('cat ~/.my.cnf')
+      config    = {}
+      db_suffix = fetch(:database_name_suffix) ? "#{fetch :database_name_suffix}" : "#{fetch :application}"
       %w(development production test).each do |env|
 
         config[env] = {
           'adapter' => 'mysql2',
           'encoding' => 'utf8',
-          'database' => "#{fetch :user}_rails_#{fetch :application}_#{env}",
+          'database' => "#{fetch :user}_rails_#{db_suffix}_#{env}",
           'host' => 'localhost'
         }
 
