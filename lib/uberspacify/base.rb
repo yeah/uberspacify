@@ -9,26 +9,27 @@ end
 Capistrano::Configuration.instance.load do
 
   # required variables
-  _cset(:user)                  { abort_red "Please configure your Uberspace user in config/deploy.rb using 'set :user, <username>'" }
-  _cset(:repository)            { abort_red "Please configure your code repository config/deploy.rb using 'set :repository, <repo uri>'" }
+  _cset(:user)                    { abort_red "Please configure your Uberspace user in config/deploy.rb using 'set :user, <username>'" }
+  _cset(:repository)              { abort_red "Please configure your code repository config/deploy.rb using 'set :repository, <repo uri>'" }
 
   # optional variables
-  _cset(:domain)                { nil }
-  _cset(:passenger_port)        { rand(61000-32768+1)+32768 } # random ephemeral port
+  _cset(:domain)                  { nil }
+  _cset(:passenger_port)          { rand(61000-32768+1)+32768 } # random ephemeral port
+  _cset(:passenger_max_pool_size) { 6 } # default mac-pool-size http://www.modrails.com/documentation/Users%20guide%20Apache.html
 
-  _cset(:deploy_via)            { :remote_cache }
-  _cset(:git_enable_submodules) { 1 }
-  _cset(:branch)                { 'master' }
+  _cset(:deploy_via)              { :remote_cache }
+  _cset(:git_enable_submodules)   { 1 }
+  _cset(:branch)                  { 'master' }
 
-  _cset(:keep_releases)         { 3 }
+  _cset(:keep_releases)           { 3 }
 
   # uberspace presets
-  set(:deploy_to)               { "/var/www/virtual/#{user}/rails/#{application}" }
-  set(:home)                    { "/home/#{user}" }
-  set(:use_sudo)                { false }
-  set(:rvm_type)                { :user }
-  set(:rvm_install_ruby)        { :install }
-  set(:rvm_ruby_string)         { "ree@rails-#{application}" }
+  set(:deploy_to)                 { "/var/www/virtual/#{user}/rails/#{application}" }
+  set(:home)                      { "/home/#{user}" }
+  set(:use_sudo)                  { false }
+  set(:rvm_type)                  { :user }
+  set(:rvm_install_ruby)          { :install }
+  set(:rvm_ruby_string)           { "ree@rails-#{application}" }
 
   ssh_options[:forward_agent] = true
   default_run_options[:pty]   = true
@@ -57,7 +58,7 @@ export HOME=#{fetch :home}
 source $HOME/.bash_profile
 cd #{fetch :deploy_to}/current
 rvm use #{fetch :rvm_ruby_string}
-exec bundle exec passenger start -p #{fetch :passenger_port} -e production 2>&1
+exec bundle exec passenger start -p #{fetch :passenger_port} -e production --max-pool-size #{fetch :passenger_max_pool_size} 2>&1
       EOF
 
       log_script = <<-EOF
