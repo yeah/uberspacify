@@ -15,7 +15,7 @@ Capistrano::Configuration.instance.load do
   # optional variables
   _cset(:domain)                  { nil }
   _cset(:passenger_port)          { rand(61000-32768+1)+32768 } # random ephemeral port
-  _cset(:passenger_max_pool_size) { 6 } # default mac-pool-size http://www.modrails.com/documentation/Users%20guide%20Apache.html
+  _cset(:passenger_max_pool_size) { 6 } # default max-pool-size http://www.modrails.com/documentation/Users%20guide%20Apache.html
 
   _cset(:deploy_via)              { :remote_cache }
   _cset(:git_enable_submodules)   { 1 }
