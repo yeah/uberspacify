@@ -13,7 +13,6 @@ Capistrano::Configuration.instance.load do
         # set up mongo db and capture admin access information
         admin_access = capture('uberspace-setup-mongodb | grep Portnum# -A 2')
         config = {}
-        run("echo #{admin_access}")
         config[:password] = admin_access[/Password:.+/]['Password: '.length..-2] # cut the \r that is captured at end of line
         #config[:password] = admin_access[/Password:.+/]['Password: '.length..-1]
         config[:port] = Integer(admin_access[/[0-9]{5}/]) 
