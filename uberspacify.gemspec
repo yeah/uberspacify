@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.version       = Uberspacify::VERSION
   
   # dependencies for capistrano
-  gem.add_dependency 'capistrano',        '>=2.12.0'
+  gem.add_dependency 'capistrano',        '>=2.12.0', '<3.0.0'
   gem.add_dependency 'capistrano_colors', '>=0.5.5'
   gem.add_dependency 'rvm-capistrano',    '>=1.2.5'
   
