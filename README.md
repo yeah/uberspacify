@@ -54,7 +54,8 @@ set :repository, 'https://github.com/yeah/dummyapp.git'
 # optional stuff from here
 
 # By default, your app will be available in the root of your Uberspace. If you
-# have your own domain set up, you can configure it here
+# have your own domain and its DNS records pointed to your Uberspace, you can
+# configure it here.
 # set :domain, 'www.dummyapp.com'
 
 # By default, uberspacify will generate a random port number for Passenger to
