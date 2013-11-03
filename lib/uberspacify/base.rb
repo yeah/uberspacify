@@ -86,7 +86,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
       run                 "mkdir -p #{path}"
       put htaccess,       "#{path}/.htaccess"
       run                 "chmod +r #{path}/.htaccess"
-      run                 "uberspace-add-domain -qwd #{fetch :domain}" if fetch(:domain)
+      run                 "uberspace-add-domain -qwd #{fetch :domain} ; true" if fetch(:domain)
     end
   end
 
