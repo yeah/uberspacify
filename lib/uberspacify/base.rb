@@ -80,7 +80,9 @@ exec multilog t ./main
     task :setup_reverse_proxy do
       htaccess = <<-EOF
 RewriteEngine On
-RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
+RewriteCond %{HTTPS}s on(s)|
+RewriteCond %{HTTP_HOST} !^localhost:$ [NC]
+RewriteRule ^(.*)$ http%1://localhost:#{fetch :passenger_port}/$1 [P]
       EOF
       path = fetch(:domain) ? "/var/www/virtual/#{fetch :user}/#{fetch :domain}" : "#{fetch :home}/html"
       run                 "mkdir -p #{path}"
