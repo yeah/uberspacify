@@ -1,5 +1,4 @@
 require 'capistrano_colors'
-require 'rvm/capistrano'
 require 'bundler/capistrano'
 
 def abort_red(msg)
@@ -27,16 +26,11 @@ Capistrano::Configuration.instance.load do
   set(:deploy_to)                 { "/var/www/virtual/#{user}/rails/#{application}" }
   set(:home)                      { "/home/#{user}" }
   set(:use_sudo)                  { false }
-  set(:rvm_type)                  { :user }
-  set(:rvm_install_ruby)          { :install }
-  set(:rvm_ruby_string)           { "ree@rails-#{application}" }
 
   ssh_options[:forward_agent] = true
   default_run_options[:pty]   = true
 
   # callbacks
-  before  'deploy:setup',           'rvm:install_rvm'
-  before  'deploy:setup',           'rvm:install_ruby'
   after   'deploy:setup',           'uberspace:setup_svscan'
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
@@ -57,7 +51,6 @@ Capistrano::Configuration.instance.load do
 export HOME=#{fetch :home}
 source $HOME/.bash_profile
 cd #{fetch :deploy_to}/current
-rvm use #{fetch :rvm_ruby_string}
 exec bundle exec passenger start -p #{fetch :passenger_port} -e production --max-pool-size #{fetch :passenger_max_pool_size} 2>&1
       EOF
 

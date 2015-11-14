@@ -63,10 +63,6 @@ set :repository, 'https://github.com/yeah/dummyapp.git'
 # set this yourself, go ahead.
 # set :passenger_port, 55555
 
-# By default, Ruby Enterprise Edition 1.8.7 is used for Uberspace. If you
-# prefer Ruby 1.9 or any other version, please refer to the RVM documentation
-# at https://rvm.io/integration/capistrano/ and set this variable.
-# set :rvm_ruby_string, '1.9.3@rails-dummyapp'
 ```
 
 Done. That was the hard part. It's easy from here on out. Next, add all new/modified files to version control. If you use Git, the following will do:
