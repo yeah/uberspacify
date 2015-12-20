@@ -91,6 +91,10 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
   end
 
   namespace :deploy do
+    desc "Displays status information of the application."
+    task :status do
+      run "svstat #{fetch :home}/service/rails-#{fetch :application}"
+    end
     task :start do
       run "svc -u #{fetch :home}/service/rails-#{fetch :application}"
     end

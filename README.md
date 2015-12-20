@@ -89,6 +89,10 @@ Should you ever need to stop/start/restart your app, you can do so using Capistr
 
     $ bundle exec cap deploy:{stop|start|restart}
     
+Further, the following command will tell you if the server is currently running:
+
+    $ bundle exec cap deploy:status
+
 That's it folks. Have fun.
     
 ## License
